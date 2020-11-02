@@ -1,28 +1,54 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="wrapper">
+    <AddProduct/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AddProduct from "@/components/AddProduct";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    AddProduct
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  background-color: #282c34;
+  padding: 20px;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+}
+
+.left {
+  left: 0;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.right {
+  right: 0;
+  background-color: #282c34;
+}
+
+.wrapper {
+  background-color: #282c34;
+  color: azure;
+  min-height: 100%;
 }
 </style>
