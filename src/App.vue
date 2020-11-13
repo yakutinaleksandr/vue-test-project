@@ -1,15 +1,18 @@
 <template>
   <div id="app" class="wrapper">
     <AddProduct/>
+    <ProductList/>
   </div>
 </template>
 
 <script>
 import AddProduct from "@/components/AddProduct";
+import ProductList from "@/components/ProductList";
 
 export default {
   name: 'App',
   components: {
+    ProductList,
     AddProduct
   }
 }
@@ -18,11 +21,25 @@ export default {
 <style>
 #app {
   margin: 0;
+  color: azure;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-size: 18px;
+  height: 40px;
+  background-color: #223951;
+  border-radius: 5px;
+  margin: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  color: azure;
+  min-width: 40px;
 }
 
 .split {
@@ -43,7 +60,7 @@ export default {
 
 .right {
   right: 0;
-  background-color: #282c34;
+  text-align: center;
 }
 
 .wrapper {
