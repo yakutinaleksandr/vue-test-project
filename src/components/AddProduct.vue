@@ -8,7 +8,7 @@
             <span>{{product.amount}}</span>
             <button v-on:click="changeAmount(product.amount + 1)">+</button>
         </div>
-        <IconSelect :default="product.icon" v-on:onChange="changeIcon"/>
+        <IconSelect :default="product.icon"/>
         <button v-on:click="addProduct">Add to list</button>
     </div>
 </template>
@@ -24,19 +24,25 @@
             return {
                 product: {
                     name: '',
-                    price: 0,
+                    price: '',
                     amount: 1,
                     icon: 'fish'
                 }
             }
         },
+
+        mounted() {
+            this.$eventHub.$on('icon-change', icon => {
+                this.product.icon = icon
+            })
+        },
+        beforeDestroy() {
+            this.$eventHub.$off('icon-change')
+        },
+
         methods: {
             changeAmount(amount) {
                 this.product.amount = amount
-            },
-
-            changeIcon(value) {
-                this.product.icon = value
             },
 
             addProduct() {
@@ -45,17 +51,16 @@
                     price: this.product.price,
                     amount: this.product.amount,
                     icon: this.product.icon
-                }
+                };
                 ProductService.create(payload)
                 .then(() => {
                     this.product = {
                         name: '',
-                        price: 0,
+                        price: '',
                         amount: 1,
                         icon: 'fish'
                     }
-                }, err => {
-                    console.log(err)
+                    this.$eventHub.$emit('product-modified')
                 })
             }
         }
@@ -73,9 +78,5 @@
     border-radius: 5px;
     margin: 10px;
     color: azure;
-}
-
-button:disabled {
-    background-color: #565758;
 }
 </style>

@@ -42,9 +42,9 @@
             },
 
             changeIcon(newIcon) {
-                this.icon = newIcon
-                this.changeOpened()
-                this.$emit('onChange', newIcon)
+                this.icon = newIcon;
+                this.changeOpened();
+                this.$eventHub.$emit('icon-change', newIcon)
             }
         }
     }

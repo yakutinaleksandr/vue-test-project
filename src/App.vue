@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="wrapper">
     <AddProduct/>
-    <ProductList/>
+    <router-view>
+      <ProductList/>
+    </router-view>
   </div>
 </template>
 
@@ -40,6 +42,10 @@ button {
   border: none;
   color: azure;
   min-width: 40px;
+}
+
+button:disabled {
+  background-color: #565758;
 }
 
 .split {

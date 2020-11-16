@@ -5,13 +5,14 @@ import {faFish, faLink, faTrashAlt, faCheese, faCarrot, faPizzaSlice} from '@for
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueRouter from "vue-router";
 import ProductList from "@/components/ProductList";
+import ProductDetails from "@/components/ProductDetails";
 
-library.add(faFish)
-library.add(faCheese)
-library.add(faCarrot)
-library.add(faPizzaSlice)
-library.add(faTrashAlt)
-library.add(faLink)
+library.add(faFish);
+library.add(faCheese);
+library.add(faCarrot);
+library.add(faPizzaSlice);
+library.add(faTrashAlt);
+library.add(faLink);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -25,11 +26,19 @@ const routes = [
     component: ProductList
   },
   {
-    path: "/:id"
-    component:
+    path: "/:id",
+    component: ProductDetails
   }
-]
+];
+
+const router = new VueRouter({
+  routes,
+  mode: "history",
+});
+
+Vue.prototype.$eventHub = new Vue()
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

@@ -4,7 +4,7 @@
             <button class='btn btn-sm btn-secondary'>
                 <font-awesome-icon icon="trash-alt" v-on:click="remove"/>
             </button>
-            <button class='btn btn-sm btn-secondary'>
+            <button class='btn btn-sm btn-secondary' v-on:click="toProductDetails">
                 <font-awesome-icon icon="link"/>
             </button>
         </div>
@@ -13,7 +13,11 @@
         </div>
         <div class='product-list-description text-center'>
             <div>{{this.product.name}}</div>
-            <div>Amount: {{this.product.amount}}</div>
+            <div>
+                <button :disabled="!(product.amount - 1)" v-on:click="changeAmount(product.amount - 1)">-</button>
+                <span>{{product.amount}}</span>
+                <button v-on:click="changeAmount(product.amount + 1)">+</button>
+            </div>
             <div>
                 <span>Total: {{this.product.amount * this.product.price}}$</span>
             </div>
@@ -28,14 +32,22 @@
         name: "Product",
         props: ['product'],
         methods: {
-            remove() {
+            toProductDetails(){
+                this.$router.push(`/${this.product._id}`)
+            },
 
+            changeAmount(amount) {
+                ProductService.updateAmount(this.product._id, amount)
+                .then(() => {
+                    this.$eventHub.$emit('product-modified')
+                })
+            },
+
+            remove() {
                 ProductService.delete(this.product._id)
-                    .then(() => {
-                        console.log('ok')
-                    }, err => {
-                        console.log(err)
-                    })
+                .then(() => {
+                    this.$eventHub.$emit('product-modified')
+                })
             }
         }
     }

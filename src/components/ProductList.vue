@@ -2,6 +2,9 @@
     <div class="split right">
         <h4>Product list</h4>
         <Product v-for="p in products" v-bind:key="p._id" :product="p"/>
+        <span class="float-left">
+            Total: ${{calculateTotal()}}
+        </span>
     </div>
 </template>
 
@@ -17,14 +20,29 @@
             }
         },
         mounted() {
-            ProductService.getAll()
-            .then(response => {
-                this.products = response.data.data;
-            })
+            this.$eventHub.$on('product-modified', () => {
+                this.getProducts()
+            });
+            this.getProducts()
+        },
+        methods: {
+            getProducts() {
+                ProductService.getAll()
+                    .then(response => {
+                        this.products = response.data.products;
+                    })
+            },
+
+            calculateTotal() {
+                return this.products.reduce((accumulator, product) =>
+                    accumulator + product.price * product.amount, 0);
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    .float-left {
+        float: left;
+    }
 </style>
