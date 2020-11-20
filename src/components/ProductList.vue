@@ -25,6 +25,11 @@
             });
             this.getProducts()
         },
+
+        beforeDestroy () {
+            this.$eventHub.$off('product-modified')
+        },
+
         methods: {
             getProducts() {
                 ProductService.getAll()
