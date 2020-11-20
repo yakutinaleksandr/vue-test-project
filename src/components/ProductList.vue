@@ -30,6 +30,8 @@
                 ProductService.getAll()
                     .then(response => {
                         this.products = response.data.products;
+                    }, error => {
+                        alert(`${error.response.data.message}`)
                     })
             },
 

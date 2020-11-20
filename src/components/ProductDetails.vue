@@ -35,6 +35,8 @@
             ProductService.getOne(this.$route.params.id)
             .then(response => {
                 this.product = response.data.data
+            }, error => {
+                alert(`${error.response.data.message}`)
             })
         },
 

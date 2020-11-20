@@ -61,6 +61,8 @@
                         icon: 'fish'
                     }
                     this.$eventHub.$emit('product-modified')
+                }, err => {
+                    alert(`${err.response.data.message}`)
                 })
             }
         }
